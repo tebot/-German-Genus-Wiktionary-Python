@@ -1,28 +1,28 @@
 import requests
 
-def search(wort):
+def search(word):
 
-    wort=wort.title()#Der erste Buchstabe des Wortes muss immer groß sein. Falls das nicht der fall ist wird das hier korregiert
+    word=word.title()#The first Charakter of the word always need to be capitalized. Otherwise the wiktionary-search will not work
     try:
-        url='https://de.wiktionary.org/wiki/'+wort
-        response=requests.get(url)#Ich lade die ganze Webseite zu dem Thema in Python
+        url='https://de.wiktionary.org/wiki/'+word
+        response=requests.get(url)#The whole website will be uploaded in python
         
         
-        text=response.text#Die ganze Webseite wird in Text umgewandelt
-        gender_index=text.index("Genus:")#Das Genus(Geschlecht) wir auf der Webseite gesucht. Es wird gleich das erste Ergebnis genommen da Genus oft schon im Titel steht
+        text=response.text#Convert the website into text
+        gender_index=text.index("Genus:")#The word "Genus" gets searched on the website. The fist hit will be taken because mostly the genus stands in the Title
         
-        gender=text[gender_index+7:gender_index+8]#Der Anfangsbuchstabe des Geschlechtes wird gespeichert
+        gender=text[gender_index+7:gender_index+8]#The first letter of the genus/gender will be stored
         #print("Gender=",gender)
         
-        if(gender=="N" or gender=="F" or gender=="M"): #Wenn N=Neutral, F=Femal/Weiblich M=Male/Männlich rauskommt wird das zurück gegeben
+        if(gender=="N" or gender=="F" or gender=="M"): #If there will be N=Neutral, F=Femal/Weiblich or M=Male/Männlich it returns the first letter of the gender
             return gender
             
-        else:#Falls ein Fehler vorkommt wird  E für Error zurückgegeben
+        else:#If there is an error it will return E=Error
             print("Error")
             return "E"
         
     except:
-        print("Leider konnte zu dem Wort kein Artikel gefunden werden. Es kann sein das kein Wiktionary-Artikel dazu exestiert oder sie das Wort falsch geschrieben haben")
-        return "E" #Bei einem Fehler wird E für Error zurück gegeben
+        print("Unfortunately no article could be found for the word. It is possible that there is no Wiktionary article about this word or you misspelled the word")
+        return "E" #There is a error so it will return E=Error
     
 
